@@ -2,8 +2,8 @@
 
 > 適用課程：電子工程系「程式設計（Java）」
 > 練習時間：**5～10 分鐘**
-> 同時練習 **GitHub 的 fork → branch → commit → push → Pull Request** 流程
-> **不用寫任何程式碼**，只要打開 HTML 檔用眼睛判斷
+> **不用寫任何程式碼、不用安裝任何軟體**，只要打開 HTML 檔用眼睛判斷
+> 繳交方式：**Google Classroom 的「私人留言」**
 
 ## 一、練習情境
 
@@ -39,23 +39,23 @@
 
 ## 三、練習步驟
 
-### Step 1｜取得專案（約 2 分鐘）
+### Step 1｜下載練習檔（約 1 分鐘）
 
-1. 在本專案的 GitHub 頁面右上角按 **Fork**，複製一份到自己的帳號。
-2. 把自己的那一份 clone 下來，並開一個新分支：
+1. 打開本專案的 GitHub 頁面。
+2. 按綠色的 **`< > Code`** 按鈕 → 選 **Download ZIP**。
+3. 把下載的 `java.garbage_collect_example-main.zip` **解壓縮**
+   （Windows：在檔案上按右鍵 →「解壓縮全部」）。
+4. 進入解壓後的資料夾，你會看到 `site/` 裡面的 6 個 HTML 檔。
 
-```bash
-git clone https://github.com/<你的帳號>/java.garbage_collect_example.git
-cd java.garbage_collect_example
-git checkout -b answer-<你的學號>
-```
+> 注意：一定要先解壓縮。直接在 ZIP 壓縮檔裡點開網頁，連結會失效。
 
 ### Step 2｜自己看 HTML，找出垃圾網頁（約 3～5 分鐘）
 
-**方法 A（用瀏覽器）**：直接打開 `site/index.html`，從首頁開始把每個連結都點一遍，
-記下你**點得到**的頁面；剩下沒被點到的就是垃圾。
+**方法 A（用瀏覽器）**：用瀏覽器打開 `site/index.html`，
+從首頁開始把看得到的連結都點一遍，記下你**點得到**的頁面；
+剩下那些沒被點到的，就是垃圾。
 
-**方法 B（用編輯器）**：把 6 個 HTML 檔一個一個打開，
+**方法 B（用記事本／編輯器）**：把 6 個 HTML 檔一個一個打開，
 找出裡面的 `<a href="...">`，在紙上畫出連結圖，例如：
 
 ```
@@ -65,41 +65,38 @@ index.html ──> about.html
 
 畫完後問自己：**哪些檔案的箭頭「進不來」？**
 
-> 選用的小技巧（不是必要步驟）—— 一次列出所有連結：
-> `grep -o 'href="[^"]*"' site/*.html`
-> Windows PowerShell：`Select-String -Path site/*.html -Pattern 'href='`
-> 注意：這個指令**連註解裡的連結也會一起列出來**，要自己回檔案裡確認那一行是不是被註解掉了。
+> 小提醒：用「搜尋」功能找 `href` 時，會連**被註解掉的連結**一起找到。
+> 找到之後要回去看那一行是不是包在 `<!-- ... -->` 裡面（規則 1）。
 
-### Step 3｜寫下答案
+### Step 3｜把答案填到 Google Classroom 的「私人留言」（約 1 分鐘）
 
-打開 [`WORKSHEET.md`](WORKSHEET.md)，填寫：
+到 Google Classroom 這份作業頁面，右側的 **「你的作業」** 區塊下方
+找到 **「新增私人留言」**，填入你的答案後按送出。
 
-- 每個檔案是「可達 / 不可達」，以及你的理由
-- **結論：要刪除哪些檔案**
-- 三題討論題
+**只要說明「有哪些檔案要刪掉」就可以了。** 格式範例：
 
-### Step 4｜推上 GitHub 並開 Pull Request（約 2～3 分鐘）
+```
+【GC 練習】學號：xxxxxxx　姓名：xxx
 
-```bash
-git add WORKSHEET.md
-git commit -m "作業：找出不可達的網頁（學號 xxxxxxx）"
-git push -u origin answer-<你的學號>
+要刪除的檔案：
+- ○○○○.html（理由：……）
+- ○○○○.html（理由：……）
 ```
 
-然後回到 GitHub 網頁，按 **Compare & pull request** 送出 PR，
-標題請寫上你的**學號與姓名**。
+理由寫一句話就好，例如「沒有任何存活的頁面連到它」。
 
-### Step 5｜對答案
+### Step 4｜對答案
 
-送出 PR 之後，再打開 [`SOLUTION.md`](SOLUTION.md) 對答案。
-**請務必先自己做完再看解答。**
+**送出私人留言之後**，再打開 [`SOLUTION.md`](SOLUTION.md) 對答案。
+（它就在你下載的 ZIP 裡面，也可以直接在 GitHub 上點開看。）
 
-## 四、討論題
+**請務必先自己判斷、送出答案，再看解答。**
 
-1. `island-a.html` 和 `island-b.html` 互相連結，兩邊的「被引用次數」都是 1，不是 0。
-   如果 JVM 採用**引用計數法**，這兩個檔案會被回收嗎？
-   為什麼改用**可達性分析**就能回收它們？
-2. `old-news.html` 裡面明明有連到首頁的連結，為什麼它還是垃圾？
+## 四、課堂討論題（口頭討論，不必寫在留言裡）
+
+1. 如果兩個網頁互相連結，「被連到的次數」都不是 0，
+   採用**引用計數法**的話它們會被回收嗎？為什麼**可達性分析**就能回收它們？
+2. 有一頁明明有連到首頁的連結，為什麼它還是垃圾？
 3. 如果把 `index.html` 裡那段 HTML 註解**拿掉**，讓那個連結復活，
    會有幾個檔案從垃圾變成存活？這對應到 Java 裡的什麼情況？
 
@@ -108,8 +105,7 @@ git push -u origin answer-<你的學號>
 ```
 .
 ├── README.md          ← 練習說明（本檔案）
-├── WORKSHEET.md       ← 學生填寫的答案單
-├── SOLUTION.md        ← 解答（做完再看！）
+├── SOLUTION.md        ← 解答（送出答案後再看！）
 └── site/              ← 練習用的小網站
     ├── index.html     ← 唯一入口（GC Root）
     ├── about.html
